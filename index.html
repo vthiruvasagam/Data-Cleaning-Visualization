@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoCare - Enterprise Vehicle Service Management Application</title>
+  <meta name="description" content="Next-generation Vehicle Service Management Platform powered by Pega Case Management principles. Streamlined service booking, digital vehicle inspection, repair tracking, and customer updates.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header Navigation -->
+  <header class="app-header" id="mainHeader">
+    <div class="header-container">
+      <div class="brand-wrapper">
+        <div class="brand-logo">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9C2.1 11 2 11.5 2 12v4c0 .6.4 1 1 1h2"/>
+            <circle cx="7" cy="17" r="2"/>
+            <path d="M9 17h6"/>
+            <circle cx="17" cy="17" r="2"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">AutoCare</span>
+          <span class="brand-sub">Service Hub · BP-2320</span>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="nav-roles" id="roleNavigation">
+        <button class="role-btn active" data-tab="customerTab" id="navCustomerBtn">
+          <span class="role-icon">👤</span> Customer Portal
+        </button>
+        <button class="role-btn" data-tab="advisorTab" id="navAdvisorBtn">
+          <span class="role-icon">📋</span> Service Advisor
+        </button>
+        <button class="role-btn" data-tab="technicianTab" id="navTechnicianBtn">
+          <span class="role-icon">🔧</span> Technician Bay
+        </button>
+        <button class="role-btn" data-tab="managerTab" id="navManagerBtn">
+          <span class="role-icon">📊</span> Manager & Analytics
+        </button>
+      </nav>
+
+      <!-- Right Header Actions -->
+      <div class="header-actions">
+        <div class="system-badge">
+          <span class="status-dot pulsing"></span>
+          <span>Pega 24.x Online</span>
+        </div>
+        <button class="icon-btn" id="notifBellBtn" title="View Customer Correspondence & Alerts">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+          <span class="badge-count" id="notifBadgeCount">3</span>
+        </button>
+        <button class="primary-btn-sm" id="headerBookBtn">
+          + Book Service
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Application Body -->
+  <main class="main-content">
+    
+    <!-- Hero & Metric Summary Banner -->
+    <section class="hero-banner">
+      <div class="hero-content">
+        <div class="hero-tag">National Internship Program · Pega Platform™ Solution</div>
+        <h1 class="hero-title">Vehicle Service & Repair Management System</h1>
+        <p class="hero-desc">Orchestrating end-to-end automotive service cases: real-time intake, digital vehicle inspection (DVI), dynamic estimates, technician dispatch, and automated multichannel updates.</p>
+        <div class="hero-actions">
+          <button class="btn-primary" id="heroQuickBookBtn">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            Schedule Service
+          </button>
+          <button class="btn-secondary" id="heroTrackBtn">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            Track Active Case
+          </button>
+        </div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon-wrapper bg-blue">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <div class="stat-info">
+            <span class="stat-val" id="statActiveCases">6</span>
+            <span class="stat-lbl">Active Service Cases</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon-wrapper bg-amber">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          </div>
+          <div class="stat-info">
+            <span class="stat-val" id="statOccupiedBays">5 / 8</span>
+            <span class="stat-lbl">Service Bays Active</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon-wrapper bg-emerald">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="stat-info">
+            <span class="stat-val" id="statSlaRate">98.4%</span>
+            <span class="stat-lbl">SLA Compliance</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon-wrapper bg-purple">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div class="stat-info">
+            <span class="stat-val" id="statAvgRating">4.9 ★</span>
+            <span class="stat-lbl">Customer NPS Rating</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Case Lifecycle Progress Tracker -->
+    <section class="lifecycle-tracker-section" id="caseTrackerSection">
+      <div class="section-header-compact">
+        <div>
+          <h2 class="section-title-sm">🔄 Live Case Lifecycle Visualizer</h2>
+          <p class="section-sub-sm">Selected Case: <strong id="trackerCaseId">CAS-2026-0812</strong> (<span id="trackerVehicleName">Toyota Camry 2023 · TN 07 BV 4821</span>)</p>
+        </div>
+        <div class="tracker-selector">
+          <label for="caseSelectDropdown">Switch Case:</label>
+          <select id="caseSelectDropdown" class="form-select-sm"></select>
+        </div>
+      </div>
+
+      <div class="stages-timeline" id="stagesTimeline">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+
+    <!-- ==================== TAB 1: CUSTOMER PORTAL ==================== -->
+    <section class="portal-tab active" id="customerTab">
+      <div class="grid-2-col">
+        <!-- Booking & Request Form -->
+        <div class="panel-card">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <span class="panel-icon">📝</span>
+              <div>
+                <h3 class="panel-title">Book New Vehicle Service</h3>
+                <p class="panel-desc">US-001: Submit customer vehicle intake and select required packages.</p>
+              </div>
+            </div>
+          </div>
+          <form id="serviceBookingForm" class="app-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="custName">Customer Full Name *</label>
+                <input type="text" id="custName" class="form-input" placeholder="e.g. Santhoshkumar S" required value="Santhoshkumar S">
+              </div>
+              <div class="form-group">
+                <label for="custPhone">Phone Number *</label>
+                <input type="tel" id="custPhone" class="form-input" placeholder="e.g. +91 98765 43210" required value="+91 98401 23456">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="custEmail">Email Address *</label>
+                <input type="email" id="custEmail" class="form-input" placeholder="e.g. santhosh@example.com" required value="santhosh.s@pega-nip.com">
+              </div>
+              <div class="form-group">
+                <label for="vehRegNumber">Vehicle Reg Number *</label>
+                <input type="text" id="vehRegNumber" class="form-input text-uppercase" placeholder="e.g. TN 07 CD 5544" required value="TN 09 DX 7721">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="vehMakeModel">Make & Model *</label>
+                <input type="text" id="vehMakeModel" class="form-input" placeholder="e.g. Hyundai Creta 2024" required value="Hyundai Creta 2024">
+              </div>
+              <div class="form-group">
+                <label for="vehMileage">Current Odometer (km)</label>
+                <input type="number" id="vehMileage" class="form-input" placeholder="e.g. 18500" value="22500">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="servicePackageSelect">Service Package *</label>
+                <select id="servicePackageSelect" class="form-select" required>
+                  <option value="periodic_basic" data-cost="2499" data-hours="2">Periodic Maintenance - Basic ($2,499)</option>
+                  <option value="periodic_major" data-cost="5999" data-hours="4" selected>Comprehensive Full Service ($5,999)</option>
+                  <option value="brake_suspension" data-cost="3800" data-hours="3">Brakes & Suspension Overhaul ($3,800)</option>
+                  <option value="ac_electrical" data-cost="2900" data-hours="2.5">HVAC Air Conditioning & Electrical ($2,900)</option>
+                  <option value="engine_diagnostic" data-cost="4500" data-hours="4">Advanced Engine & ECU Diagnostic ($4,500)</option>
+                  <option value="custom_repair" data-cost="1500" data-hours="1.5">Custom Inspection & Minor Repair ($1,500)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="preferredDate">Preferred Appointment Date *</label>
+                <input type="date" id="preferredDate" class="form-input" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="issueDescription">Customer Reported Issues & Special Requests</label>
+              <textarea id="issueDescription" class="form-textarea" rows="3" placeholder="Describe any noises, vibrations, check engine lights, or specific requests...">Brake pedal feels slightly spongy, and slight vibration when braking at 60 km/h. Please check cabin AC cooling.</textarea>
+            </div>
+
+            <!-- Dynamic Cost Estimation Preview Box -->
+            <div class="estimation-preview-box">
+              <div class="est-row">
+                <span>Base Service Package:</span>
+                <span id="previewBaseCost" class="font-bold">₹5,999</span>
+              </div>
+              <div class="est-row">
+                <span>Est. Labor Hours:</span>
+                <span id="previewLaborHours">4.0 hrs</span>
+              </div>
+              <div class="est-row">
+                <span>Taxes & Fees (GST 18%):</span>
+                <span id="previewTaxes">₹1,079</span>
+              </div>
+              <div class="est-divider"></div>
+              <div class="est-row total-highlight">
+                <span>Estimated Preliminary Total:</span>
+                <span id="previewTotalCost" class="highlight-val">₹7,078</span>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-primary w-full" id="submitBookingBtn">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Confirm & Create Pega Case
+            </button>
+          </form>
+        </div>
+
+        <!-- Customer Active Cases & Digital Approvals -->
+        <div class="panel-stack">
+          <!-- Active Cases List -->
+          <div class="panel-card">
+            <div class="panel-header">
+              <div class="panel-title-group">
+                <span class="panel-icon">🚘</span>
+                <div>
+                  <h3 class="panel-title">My Registered Vehicles & Services</h3>
+                  <p class="panel-desc">Real-time status of your active service cases.</p>
+                </div>
+              </div>
+            </div>
+            <div class="cases-list" id="customerCasesList">
+              <!-- Dynamically Populated -->
+            </div>
+          </div>
+
+          <!-- Pending Customer Approval Widget -->
+          <div class="panel-card border-highlight" id="approvalAlertBox">
+            <div class="panel-header">
+              <div class="panel-title-group">
+                <span class="panel-icon animate-bounce">⚠️</span>
+                <div>
+                  <h3 class="panel-title text-amber">Customer Review & Approval Required</h3>
+                  <p class="panel-desc">US-004: Advisor found additional repairs during digital inspection.</p>
+                </div>
+              </div>
+            </div>
+            <div class="approval-card-body" id="approvalWidgetContent">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 2: SERVICE ADVISOR PORTAL ==================== -->
+    <section class="portal-tab" id="advisorTab">
+      <div class="grid-layout-advisor">
+        <!-- Intake & Queue List -->
+        <div class="panel-card">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <span class="panel-icon">📥</span>
+              <div>
+                <h3 class="panel-title">Advisor Intake & Work Queues</h3>
+                <p class="panel-desc">US-010: Route cases across specialized service queues.</p>
+              </div>
+            </div>
+            <div class="queue-filter-buttons">
+              <button class="filter-pill active" data-queue="all">All (6)</button>
+              <button class="filter-pill" data-queue="GeneralServiceQueue">General (3)</button>
+              <button class="filter-pill" data-queue="MajorRepairQueue">Major (2)</button>
+              <button class="filter-pill" data-queue="ExpressServiceQueue">Express (1)</button>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="app-table" id="advisorQueueTable">
+              <thead>
+                <tr>
+                  <th>Case ID</th>
+                  <th>Vehicle & Reg</th>
+                  <th>Customer</th>
+                  <th>Queue / Service</th>
+                  <th>Current Stage</th>
+                  <th>SLA Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="advisorTableBody">
+                <!-- Dynamically rendered -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Digital Vehicle Inspection (DVI) & Estimate Builder -->
+        <div class="panel-card" id="advisorDviPanel">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <span class="panel-icon">🔍</span>
+              <div>
+                <h3 class="panel-title">Digital Vehicle Inspection (DVI) & Estimate Builder</h3>
+                <p class="panel-desc">US-002 & US-003: Conduct walkaround, record diagnostics, and draft estimate.</p>
+              </div>
+            </div>
+            <span class="badge-blue" id="dviActiveCaseBadge">Case: CAS-2026-0812</span>
+          </div>
+
+          <form id="dviInspectionForm" class="app-form">
+            <h4 class="form-section-title">1. Multi-Point Health Checklist</h4>
+            <div class="checklist-grid">
+              <label class="check-card">
+                <input type="checkbox" checked id="chkEngineOil">
+                <span class="check-title">Engine Oil & Filter</span>
+                <span class="check-desc">Degraded · Replacement required</span>
+              </label>
+              <label class="check-card warning">
+                <input type="checkbox" checked id="chkBrakes">
+                <span class="check-title">Brake Pads & Rotors</span>
+                <span class="check-desc">Front pads at 2.5mm (Low)</span>
+              </label>
+              <label class="check-card">
+                <input type="checkbox" checked id="chkAirFilter">
+                <span class="check-title">Air & Cabin Filters</span>
+                <span class="check-desc">Clogged · Cleaning/Swap</span>
+              </label>
+              <label class="check-card">
+                <input type="checkbox" checked id="chkBattery">
+                <span class="check-title">Battery & Alternator</span>
+                <span class="check-desc">Health 89% · Good</span>
+              </label>
+              <label class="check-card">
+                <input type="checkbox" id="chkSuspension">
+                <span class="check-title">Suspension & Bushings</span>
+                <span class="check-desc">Normal operation</span>
+              </label>
+              <label class="check-card">
+                <input type="checkbox" checked id="chkWiperFluids">
+                <span class="check-title">Coolant & Washer Fluid</span>
+                <span class="check-desc">Top-up required</span>
+              </label>
+            </div>
+
+            <h4 class="form-section-title mt-4">2. Requisition Spare Parts (US-007)</h4>
+            <div class="parts-selector-box">
+              <div class="form-row">
+                <div class="form-group flex-2">
+                  <label for="partsCatalogSelect">Add Spare Part from Catalog</label>
+                  <select id="partsCatalogSelect" class="form-select">
+                    <option value="BP-F-01" data-name="Front Brake Pad Kit (Ceramic)" data-price="2450">Front Brake Pad Kit (Ceramic) - ₹2,450</option>
+                    <option value="OF-SY-02" data-name="Synthetic Engine Oil 5W-30 (4L)" data-price="1890">Synthetic Engine Oil 5W-30 (4L) - ₹1,890</option>
+                    <option value="AF-CAB-03" data-name="Cabin Carbon Air Filter" data-price="650">Cabin Carbon Air Filter - ₹650</option>
+                    <option value="SP-NGK-04" data-name="Iridium Spark Plug Set (4 pcs)" data-price="1600">Iridium Spark Plug Set (4 pcs) - ₹1,600</option>
+                    <option value="CL-RED-05" data-name="Engine Coolant Pre-Mix (2L)" data-price="450">Engine Coolant Pre-Mix (2L) - ₹450</option>
+                  </select>
+                </div>
+                <div class="form-group flex-1">
+                  <label for="partQtyInput">Quantity</label>
+                  <input type="number" id="partQtyInput" class="form-input" min="1" max="10" value="1">
+                </div>
+                <div class="form-group flex-auto align-end">
+                  <button type="button" class="btn-secondary" id="addPartBtn">+ Add Part</button>
+                </div>
+              </div>
+
+              <!-- Selected Parts Table -->
+              <div class="selected-parts-list" id="selectedPartsContainer">
+                <!-- Dynamically updated -->
+              </div>
+            </div>
+
+            <h4 class="form-section-title mt-4">3. Assign Technician & Dispatch Work Order</h4>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="assignTechSelect">Assigned Technician *</label>
+                <select id="assignTechSelect" class="form-select">
+                  <option value="tech_karthik">Karthik R (Senior Master Tech · Bay 2)</option>
+                  <option value="tech_manoj">Manoj Kumar (Electrical & Diagnostics · Bay 4)</option>
+                  <option value="tech_ramesh">Ramesh V (Suspension & Brakes · Bay 1)</option>
+                  <option value="tech_anand">Anand S (Periodic Maintenance · Bay 6)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="advisorEstimateHours">Allocated Labor Hours</label>
+                <input type="number" id="advisorEstimateHours" class="form-input" step="0.5" value="3.5">
+              </div>
+            </div>
+
+            <div class="form-actions mt-4">
+              <button type="button" class="btn-primary" id="saveEstimateAndSendApprovalBtn">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                Submit DVI & Send Customer Approval
+              </button>
+              <button type="button" class="btn-secondary" id="advisorPrintEstimateBtn">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                Preview Estimate Sheet
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: TECHNICIAN WORKBENCH ==================== -->
+    <section class="portal-tab" id="technicianTab">
+      <div class="technician-layout">
+        <!-- Active Technician Bay Status -->
+        <div class="panel-card">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <span class="panel-icon">🛠️</span>
+              <div>
+                <h3 class="panel-title">Technician Execution Workbench</h3>
+                <p class="panel-desc">US-007 & US-009: Active repair task execution, labor timer, and QA sign-off.</p>
+              </div>
+            </div>
+            <div class="tech-active-profile">
+              <span class="tech-avatar">👨‍🔧</span>
+              <div>
+                <div class="tech-name">Karthik R.</div>
+                <div class="tech-bay">Station: <strong>Bay 2 (Hydraulic Lift A)</strong></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Active Job Focus Card -->
+          <div class="active-job-card" id="technicianActiveJob">
+            <div class="job-header">
+              <div>
+                <span class="badge-amber" id="techJobStage">Stage 4: Execution & Repairs</span>
+                <h3 class="job-title" id="techJobTitle">Case CAS-2026-0812 · Toyota Camry 2023</h3>
+                <p class="job-sub">License: <strong>TN 07 BV 4821</strong> | Customer: <strong>Rajesh Sharma</strong> (+91 98410 88231)</p>
+              </div>
+              <div class="sla-timer-card">
+                <span class="sla-label">SLA Urgency Countdown:</span>
+                <span class="sla-time text-emerald" id="techSlaClock">03h : 42m : 18s</span>
+                <span class="sla-status-text">Goal: 4h | Deadline: 24h</span>
+              </div>
+            </div>
+
+            <!-- Task Checkpoints -->
+            <div class="job-steps-grid">
+              <div class="task-step-box completed">
+                <div class="step-num">✓</div>
+                <div class="step-details">
+                  <strong>1. Drain & Flush Engine Oil</strong>
+                  <span>Synthetic 5W-30 replaced · Completed</span>
+                </div>
+              </div>
+              <div class="task-step-box in-progress">
+                <div class="step-num">2</div>
+                <div class="step-details">
+                  <strong>2. Replace Front Brake Pad Kit</strong>
+                  <span>Calipers lubricated · Installing ceramic pads</span>
+                </div>
+              </div>
+              <div class="task-step-box pending">
+                <div class="step-num">3</div>
+                <div class="step-details">
+                  <strong>3. Cabin AC & Filter Inspection</strong>
+                  <span>Clean evaporator & install carbon filter</span>
+                </div>
+              </div>
+              <div class="task-step-box pending">
+                <div class="step-num">4</div>
+                <div class="step-details">
+                  <strong>4. Quality Check & 5km Road Test</strong>
+                  <span>Pre-handover inspection & diagnostics scan</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Technician Action Controls -->
+            <div class="tech-action-bar">
+              <div class="labor-timer-wrapper">
+                <span class="timer-display" id="laborTimerDisplay">01:45:22</span>
+                <button class="btn-sm-action" id="techPauseResumeBtn">⏸ Pause Timer</button>
+              </div>
+              <div class="tech-buttons">
+                <button class="btn-secondary" id="techRequestPartBtn">+ Requisition Extra Part</button>
+                <button class="btn-primary" id="techCompleteRepairBtn">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                  Complete Repairs & Send to QC
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technician Work Queue Cards -->
+        <div class="panel-card mt-4">
+          <div class="panel-header">
+            <h3 class="panel-title">Assigned Bay Queue (Upcoming Jobs)</h3>
+            <span class="badge-count-pill" id="techQueueCount">3 Pending</span>
+          </div>
+          <div class="bay-queue-grid" id="bayQueueGrid">
+            <!-- Dynamically Rendered -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 4: MANAGER & ANALYTICS ==================== -->
+    <section class="portal-tab" id="managerTab">
+      <div class="manager-grid">
+        <!-- Bay Utilization Live Matrix -->
+        <div class="panel-card">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <span class="panel-icon">🏢</span>
+              <div>
+                <h3 class="panel-title">Live Workshop Bay Allocation</h3>
+                <p class="panel-desc">Real-time status across 8 service bays and lift stations.</p>
+              </div>
+            </div>
+          </div>
+          <div class="bays-matrix" id="baysMatrixGrid">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+
+        <!-- Spare Parts Inventory Tracker -->
+        <div class="panel-card">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <span class="panel-icon">📦</span>
+              <div>
+                <h3 class="panel-title">Spare Parts & Inventory Level</h3>
+                <p class="panel-desc">Real-time stock, replenishment alerts, and pricing.</p>
+              </div>
+            </div>
+            <button class="btn-sm-action" id="mgrAddPartBtn">+ Restock Item</button>
+          </div>
+          <div class="table-responsive">
+            <table class="app-table">
+              <thead>
+                <tr>
+                  <th>SKU</th>
+                  <th>Part Name</th>
+                  <th>Unit Price</th>
+                  <th>In Stock</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="inventoryTableBody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Financial Performance & SLA Metrics -->
+        <div class="panel-card full-width">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <span class="panel-icon">📈</span>
+              <div>
+                <h3 class="panel-title">Service Center Performance & SLA Dashboard</h3>
+                <p class="panel-desc">US-009: Track turnaround times, revenue, and queue bottlenecks.</p>
+              </div>
+            </div>
+            <div class="metric-date-tag">Today: <span id="currentDateDisplay"></span></div>
+          </div>
+          <div class="analytics-row">
+            <div class="metric-card">
+              <span class="m-label">Today's Revenue</span>
+              <span class="m-val text-emerald">₹48,920</span>
+              <span class="m-trend">▲ 14% vs yesterday</span>
+            </div>
+            <div class="metric-card">
+              <span class="m-label">Completed Services</span>
+              <span class="m-val">8 Cases</span>
+              <span class="m-trend">Avg. 3.2 hrs turnaround</span>
+            </div>
+            <div class="metric-card">
+              <span class="m-label">First-Time-Right (FTR)</span>
+              <span class="m-val text-blue">96.8%</span>
+              <span class="m-trend">Quality control passed</span>
+            </div>
+            <div class="metric-card">
+              <span class="m-label">Customer Satisfaction</span>
+              <span class="m-val text-purple">4.92 / 5.0</span>
+              <span class="m-trend">Based on 42 reviews</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== MODALS & POPUPS ==================== -->
+
+  <!-- Invoice & Print Modal -->
+  <div class="modal-overlay" id="invoiceModal">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="modal-icon">🧾</span>
+          <h3>Tax Invoice & Service Summary</h3>
+        </div>
+        <button class="modal-close-btn" id="closeInvoiceModalBtn">&times;</button>
+      </div>
+      <div class="modal-body" id="invoicePrintContent">
+        <!-- Rendered via JS -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" id="printInvoiceBtn">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Print Invoice
+        </button>
+        <button class="btn-primary" id="confirmPaymentBtn">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Process Payment & Resolve Case
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Customer Correspondence Notification Drawer -->
+  <div class="drawer-overlay" id="notifDrawer">
+    <div class="drawer-content">
+      <div class="drawer-header">
+        <div class="drawer-title-group">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <h3>Customer Notifications & Correspondence</h3>
+        </div>
+        <button class="drawer-close-btn" id="closeNotifDrawerBtn">&times;</button>
+      </div>
+      <p class="drawer-sub">US-008: Automated email & SMS dispatches on case milestones.</p>
+      <div class="notif-feed" id="notifFeed">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
