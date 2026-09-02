@@ -143,8 +143,8 @@ AutoCare Vehicle Services – Customer Support Team
 
 ## 👨‍💻 Author & Repository
 
-- **Author:** Santhoshkumar S ([@SanthoshkumarS2407](https://github.com/SanthoshkumarS2407))
-- **Repository:** [Vehicle_Service-_Management](https://github.com/SanthoshkumarS2407/Vehicle-Service-Management)
+- **Author:** Thiruvasagam V([@vthiruvasagam](https://github.com/vthiruvasagam))
+- **Repository:** [Vehicle_Service-_Management](https://github.com/vthiruvasagam/Vehicle-Service-Management)
 
 ---
 
